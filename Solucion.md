@@ -2,6 +2,8 @@
 
 IA utilizada: Claude
 
+Prompt utilizado: Ayudame a relizar este ejercicio, dame el codigo estructurado de tal forma que cumplamos los puntos de los objetivos de el ejercicio, realiza el ejercicio en java y dame solo los codigos de las clases que creas
+
 # Solución — Problema #1: El Videoclub de Don Mario
 
 ---
@@ -85,3 +87,59 @@ Esto permite que `Receipt` itere una lista de `Movie` e imprima el tipo correcto
 
 ---
 
+
+## EJERCICIO 2 (23 minutos)
+
+IA usada: Claude
+
+prompt usado: Ayudame a realizar todo este ejercicio y dame aqui en el chat su solucion, las clases escribelas en el chat y dame tambien escrito en el chat las respuestas a las preguntas que hay, ten en cuenta y revisa las estructuras que plantea el ejercicio junto con los diagramas que tambien los debes de tener en cuenta, revisa la estructura de carpetas de forma correcta
+
+
+## 1. Identificación de Patrones
+
+### Patrones utilizados:
+1. **Factory Method** (mal llamado Abstract Factory en las clases)
+    - Clases Factory: `CreditCardFactory`, `PaypalFactory`, `CryptoFactory`
+    - Interfaz necesaria: `PaymentFactory`
+
+2. **Observer**
+    - Subject: `ECIPayment`
+    - Observer: `PaymentEventObserver`
+    - Observables: `Inventory`, `Facturation`, `Notification`
+
+### ¿Son adecuados?
+- ✅ **Observer**: Perfecto para notificar a múltiples módulos
+- ⚠️ **Factory Method vs Abstract Factory**: El código usa Factory Method (una jerarquía de factories), no Abstract Factory (múltiples familias). Los nombres de las clases son engañosos.
+
+## 2. Clases/Interfaces Faltantes
+
+### Interfaz Principal
+- `PaymentFactory` - Define el contrato para crear métodos de pago
+
+### Implementaciones Concretas
+- `CreditCardPaymentFactory`
+- `PaypalPaymentFactory`
+- `CryptoPaymentFactory`
+
+## 3. Cambios al Diagrama de Contexto
+
+1. Agregar componente "PaymentFactory (interface)" entre Cliente y Sistema de pago
+2. Mostrar implementaciones concretas del Factory
+3. Indicar uso explícito de patrón Observer
+4. Mostrar flujo de notificaciones desde ECIPayment hacia observers
+
+## 4. Errores Identificados
+
+1. **Import incorrecto** en `PaymentEventObserver`
+    - Importaba `javax.management.Notification`
+    - Debía importar clase propia
+
+2. **Constructor mal parametrizado** en `PaymentMethod`
+    - Recibía `transactionID` pero asignaba a `customerID`
+    - Debía recibir `customerID`
+
+3. **Falta interfaz `PaymentFactory`**
+    - El código la usa pero no existe
+
+4. **Métodos mal declarados**
+    - `setAmount()` retornaba double, debía ser void
